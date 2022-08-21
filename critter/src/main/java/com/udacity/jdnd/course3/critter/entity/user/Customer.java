@@ -2,6 +2,7 @@ package com.udacity.jdnd.course3.critter.entity.user;
 
 import com.udacity.jdnd.course3.critter.entity.pet.Pet;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import java.util.List;
@@ -9,11 +10,13 @@ import java.util.List;
 @Entity
 public class Customer extends User {
 
+    @Column(name = "phone")
     private String phoneNumber;
 
+    @Column(name = "note")
     private String notes;
 
-    @OneToMany(mappedBy = "customer")
+    @OneToMany(mappedBy = "owner")
     private List<Pet> pets;
 
     public String getPhoneNumber() {

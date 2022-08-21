@@ -4,10 +4,7 @@ import com.udacity.jdnd.course3.critter.entity.user.Customer;
 import com.udacity.jdnd.course3.critter.pet.PetType;
 import org.hibernate.annotations.Nationalized;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
@@ -21,8 +18,10 @@ public class Pet {
     @Nationalized
     private String name;
 
+    @Column(name = "birthdate")
     private LocalDate birthDate;
 
+    @Column(name = "note")
     private String notes;
 
     @ManyToOne
