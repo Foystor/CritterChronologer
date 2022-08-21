@@ -62,25 +62,28 @@ public class ScheduleController {
     }
 
     private ScheduleDTO convertEntityToScheduleDTO(Schedule schedule) {
-        ScheduleDTO scheduleDTO = new ScheduleDTO();
-        BeanUtils.copyProperties(schedule, scheduleDTO);
-        List<Long> employeeIds = new ArrayList<>();
-        List<Employee> employees = schedule.getEmployees();
-        if (employees != null) {
-            for (Employee e : employees) {
-                employeeIds.add(e.getId());
-                scheduleDTO.setEmployeeIds(employeeIds);
+        if (schedule == null) return null;
+        else {
+            ScheduleDTO scheduleDTO = new ScheduleDTO();
+            BeanUtils.copyProperties(schedule, scheduleDTO);
+            List<Long> employeeIds = new ArrayList<>();
+            List<Employee> employees = schedule.getEmployees();
+            if (employees != null) {
+                for (Employee e : employees) {
+                    employeeIds.add(e.getId());
+                    scheduleDTO.setEmployeeIds(employeeIds);
+                }
             }
-        }
-        List<Long> petIds = new ArrayList<>();
-        List<Pet> pets = schedule.getPets();
-        if (pets != null) {
-            for (Pet p : pets) {
-                petIds.add(p.getId());
-                scheduleDTO.setPetIds(petIds);
+            List<Long> petIds = new ArrayList<>();
+            List<Pet> pets = schedule.getPets();
+            if (pets != null) {
+                for (Pet p : pets) {
+                    petIds.add(p.getId());
+                    scheduleDTO.setPetIds(petIds);
+                }
             }
+            return scheduleDTO;
         }
-        return scheduleDTO;
     }
 
     private Schedule convertScheduleDTOToEntity(ScheduleDTO scheduleDTO) {
