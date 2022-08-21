@@ -33,7 +33,7 @@ public class EmployeeService {
     public List<Employee> findByDaysAvailableAndSkills(Employee employee) {
         Set<EmployeeSkill> skills = employee.getSkills();
         List<Employee> employees =
-                employeeRepository.findAllByDaysAvailableInAndSkillsIn(employee.getDaysAvailable(), skills);
+                employeeRepository.findByDaysAvailableInAndSkillsIn(employee.getDaysAvailable(), skills);
         List<Employee> availableEmployees = new ArrayList<>();
 
         for (Employee e : employees) {
