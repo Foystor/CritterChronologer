@@ -2,7 +2,7 @@ package com.udacity.jdnd.course3.critter.entity.schedule;
 
 import com.udacity.jdnd.course3.critter.entity.pet.Pet;
 import com.udacity.jdnd.course3.critter.entity.user.Employee;
-import com.udacity.jdnd.course3.critter.user.EmployeeSkill;
+import com.udacity.jdnd.course3.critter.entity.user.EmployeeSkill;
 
 import javax.persistence.*;
 import java.time.LocalDate;
