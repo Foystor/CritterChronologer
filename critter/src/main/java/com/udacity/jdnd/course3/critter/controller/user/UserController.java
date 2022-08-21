@@ -3,6 +3,7 @@ package com.udacity.jdnd.course3.critter.controller.user;
 import com.udacity.jdnd.course3.critter.entity.pet.Pet;
 import com.udacity.jdnd.course3.critter.entity.user.Customer;
 import com.udacity.jdnd.course3.critter.entity.user.Employee;
+import com.udacity.jdnd.course3.critter.service.pet.PetService;
 import com.udacity.jdnd.course3.critter.service.user.CustomerService;
 import com.udacity.jdnd.course3.critter.service.user.EmployeeService;
 import com.udacity.jdnd.course3.critter.user.CustomerDTO;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.DayOfWeek;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -29,6 +31,8 @@ import java.util.stream.Collectors;
 public class UserController {
     @Autowired
     private CustomerService customerService;
+    @Autowired
+    private PetService petService;
 
     @Autowired
     private EmployeeService employeeService;
@@ -94,6 +98,15 @@ public class UserController {
     private Customer convertCustomerDTOToEntity(CustomerDTO customerDTO) {
         Customer customer = new Customer();
         BeanUtils.copyProperties(customerDTO, customer);
+
+        List<Long> petIds = customerDTO.getPetIds();
+        List<Pet> pets = new ArrayList<>();
+        if (petIds != null) {
+            for (Long l : petIds) {
+                pets.add(petService.findById(l));
+            }
+            customer.setPets(pets);
+        }
         return customer;
     }
 
@@ -112,6 +125,10 @@ public class UserController {
     private Employee convertEmployeeRequestDTOToEntity(EmployeeRequestDTO employeeRequestDTO) {
         Employee employee = new Employee();
         BeanUtils.copyProperties(employeeRequestDTO, employee);
+        DayOfWeek dayOfWeek = employeeRequestDTO.getDate().getDayOfWeek();
+        Set<DayOfWeek> daysAvailable = new HashSet<>();
+        daysAvailable.add(dayOfWeek);
+        employee.setDaysAvailable(daysAvailable);
         return employee;
     }
 }
