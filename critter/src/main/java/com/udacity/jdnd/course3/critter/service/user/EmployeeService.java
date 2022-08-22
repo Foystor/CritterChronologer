@@ -31,14 +31,13 @@ public class EmployeeService {
     }
 
     public List<Employee> findByDaysAvailableAndSkills(Employee employee) {
-        Set<EmployeeSkill> skills = employee.getSkills();
         List<Employee> employees =
-                employeeRepository.findByDaysAvailableInAndSkillsIn(employee.getDaysAvailable(), skills);
+                employeeRepository.findAllByDaysAvailableContaining(employee.getDaysAvailable().stream().findFirst().get());
         List<Employee> availableEmployees = new ArrayList<>();
 
         for (Employee e : employees) {
             // check if employees skills contains the required skills
-            if (e.getSkills().containsAll(skills)) availableEmployees.add(e);
+            if (e.getSkills().containsAll(employee.getSkills())) availableEmployees.add(e);
         }
 
         return availableEmployees;
