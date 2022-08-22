@@ -2,7 +2,6 @@ package com.udacity.jdnd.course3.critter.service.user;
 
 import com.udacity.jdnd.course3.critter.entity.user.Employee;
 import com.udacity.jdnd.course3.critter.repository.user.EmployeeRepository;
-import com.udacity.jdnd.course3.critter.entity.user.EmployeeSkill;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,7 +31,7 @@ public class EmployeeService {
 
     public List<Employee> findByDaysAvailableAndSkills(Employee employee) {
         List<Employee> employees =
-                employeeRepository.findAllByDaysAvailableContaining(employee.getDaysAvailable().stream().findFirst().get());
+                employeeRepository.findByDaysAvailableContaining(employee.getDaysAvailable().stream().findFirst().get());
         List<Employee> availableEmployees = new ArrayList<>();
 
         for (Employee e : employees) {
